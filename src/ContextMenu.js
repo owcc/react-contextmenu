@@ -193,12 +193,12 @@ export default class ContextMenu extends AbstractMenu {
         const menuClassnames = cx(cssClasses.menu, className, {
             [cssClasses.menuVisible]: isVisible
         });
-
+        if (typeof children !== 'function') return null;
         return (
             <nav
                 role='menu' tabIndex='-1' ref={this.menuRef} style={inlineStyle} className={menuClassnames}
                 onContextMenu={this.handleContextMenu} onMouseLeave={this.handleMouseLeave}>
-                {this.renderChildren(children)}
+                {this.renderChildren(children(assign({}, this.props.data, store.data)))}
             </nav>
         );
     }
